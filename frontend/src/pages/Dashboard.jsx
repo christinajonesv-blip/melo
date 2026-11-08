@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Dashboard() {
+  const navigate = useNavigate()
+
   const stats = [
     {
       title: 'Total Emails',
@@ -49,6 +51,12 @@ function Dashboard() {
     },
   ]
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('meloToken')
+    sessionStorage.removeItem('meloUser')
+    navigate('/')
+  }
+
   return (
     <div className="min-h-screen bg-[#F3E9DA] flex flex-col md:flex-row">
 
@@ -67,33 +75,30 @@ function Dashboard() {
         <nav className="space-y-3">
 
           <Link
-  to="/compose"
-  className="bg-[#641E32] text-white px-7 py-3 rounded-xl font-medium hover:bg-[#842D45] hover:-translate-y-1 transition duration-300 shadow-lg"
->
-  + Compose Email
-</Link>
+            to="/compose"
+            className="block bg-[#842D45] text-white px-5 py-3 rounded-xl font-medium hover:bg-[#963951] hover:-translate-y-1 transition duration-300 shadow-lg"
+          >
+            + Compose Email
+          </Link>
 
-          <button className="w-full text-left px-5 py-3 rounded-xl hover:bg-[#842D45] transition">
+          <Link
+            to="/compose"
+            className="block w-full text-left px-5 py-3 rounded-xl hover:bg-[#842D45] transition"
+          >
             ✉ &nbsp; Compose Mail
-          </button>
-
-          <button className="w-full text-left px-5 py-3 rounded-xl hover:bg-[#842D45] transition">
-            ▤ &nbsp; Email History
-          </button>
-
-          <button className="w-full text-left px-5 py-3 rounded-xl hover:bg-[#842D45] transition">
-            ⚙ &nbsp; Settings
-          </button>
+          </Link>
 
         </nav>
 
         <div className="mt-auto pt-12">
-          <Link
-            to="/"
-            className="block px-5 py-3 rounded-xl text-[#E8CCA0] hover:bg-[#842D45] transition"
+
+          <button
+            onClick={handleLogout}
+            className="w-full text-left px-5 py-3 rounded-xl text-[#E8CCA0] hover:bg-[#842D45] transition"
           >
             ↪ &nbsp; Logout
-          </Link>
+          </button>
+
         </div>
 
       </aside>
@@ -121,9 +126,12 @@ function Dashboard() {
             </p>
           </div>
 
-          <button className="bg-[#641E32] text-white px-7 py-3 rounded-xl font-medium hover:bg-[#842D45] hover:-translate-y-1 transition duration-300 shadow-lg">
+          <Link
+            to="/compose"
+            className="inline-block text-center bg-[#641E32] text-white px-7 py-3 rounded-xl font-medium hover:bg-[#842D45] hover:-translate-y-1 transition duration-300 shadow-lg"
+          >
             + Compose Email
-          </button>
+          </Link>
 
         </header>
 
@@ -168,24 +176,17 @@ function Dashboard() {
 
         <section className="bg-[#FFFCF7] rounded-2xl shadow-sm border border-[#E9DED2] overflow-hidden">
 
-          <div className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="p-6 sm:p-8">
 
-            <div>
-              <h3 className="font-serif text-2xl text-[#641E32]">
-                Recent Activity
-              </h3>
+            <h3 className="font-serif text-2xl text-[#641E32]">
+              Recent Activity
+            </h3>
 
-              <p className="text-sm text-[#A18C85] mt-1">
-                A quick look at your recent campaigns.
-              </p>
-            </div>
-
-            <button className="text-sm font-semibold text-[#B08A54] hover:text-[#641E32] transition">
-              View all →
-            </button>
+            <p className="text-sm text-[#A18C85] mt-1">
+              A quick look at your recent campaigns.
+            </p>
 
           </div>
-
 
           <div className="overflow-x-auto">
 
@@ -258,4 +259,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard;
+export default Dashboard
